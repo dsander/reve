@@ -1578,9 +1578,9 @@ module Reve #:nodoc:
         @corporation_id = (elem/'corporationID').inner_html.to_i
         @corporation_name = (elem/'corporation').inner_html
         @corporation_date = Time.parse((elem/'corporationDate').inner_html)
-        @alliance_id = (elem/'allianceID').inner_html.to_i
-        @alliance_name = (elem/'alliance').inner_html
-        @alliance_date = Time.parse((elem/'alliancenDate').inner_html)
+        @alliance_id = (elem/'allianceID').inner_html == "" ? nil : (elem/'allianceID').inner_html.to_i
+        @alliance_name = (elem/'alliance').inner_html == "" ? nil : (elem/'alliance').inner_html
+        @alliance_date = Time.parse((elem/'alliancenDate').inner_html) rescue nil
         @security_status  = (elem/'securityStatus').inner_html.to_f
         @skillpoints = (elem/'skillPoints').inner_html == "" ? nil : (elem/'skillPoints').inner_html.to_i
         @skill_training_ends = (elem/'nextTrainingEnds').inner_html == "" ? nil : Time.parse((elem/'nextTrainingEnds').inner_html)

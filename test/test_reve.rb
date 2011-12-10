@@ -55,11 +55,12 @@ class TestReve < Test::Unit::TestCase
   
   def test_charid_default_works_when_characterid_is_nil
     # this line of code is wrong on so many levels.
-    assert_equal("CharID", Reve::API.new('uid','key','CharID').send(:postfields,{})['characterid'])
+    assert_equal("CharID", Reve::API.new('uid','key','CharID').send(:postfields,{})[:characterid])
   end
 
   def test_makes_a_complex_hash
     Reve::API.corporate_wallet_trans_url = XML_BASE + 'market_transactions.xml'
+    @api.cak = false
     @api.userid = 999
     @api.key = 'aaa'
     h = @api.corporate_wallet_transactions :accountkey => '1001', :characterid => 123, :beforerefid => 456, :just_hash => true
@@ -1268,8 +1269,8 @@ class TestReve < Test::Unit::TestCase
     assert_equal 553239300, info.corporation_id
     assert_equal 'Centre Of Attention', info.corporation_name
     assert_equal Time.parse('2009-02-03 13:06:00'), info.corporation_date
-    assert_equal 1923227030, info.alliance_id
-    assert_equal 'Middle of Nowhere', info.alliance_name
+    assert_equal nil, info.alliance_id
+    assert_equal nil, info.alliance_name
     assert_equal Time.parse('2009-02-03 13:06:00'), info.alliance_date
     assert_equal 0.0, info.security_status
     # limited
